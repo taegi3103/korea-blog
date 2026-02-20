@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Korea Blog</title>
+<title>Korean Blog</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -12,7 +12,7 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 
 /* HEADER */
 .hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px}
-.hdr-logo{font-family:'Nanum Gothic',sans-serif;font-weight:800;font-size:15px;color:#111;text-decoration:none;letter-spacing:10px;cursor:pointer}
+.hdr-logo{font-family:'Nanum Gothic',sans-serif;font-weight:800;font-size:15px;color:#111;text-decoration:none;letter-spacing:3px;cursor:pointer}
 .hdr-logo b{color:#0066ff}
 .hdr-nav{display:flex;align-items:center;gap:32px}
 .hdr-nav a{font-size:13px;color:#888;text-decoration:none;font-weight:700;letter-spacing:1px;transition:color .2s;cursor:pointer}
@@ -23,12 +23,12 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .hero{background:linear-gradient(135deg,#f0f5ff 0%,#e8f4ff 100%);padding:80px 40px;overflow:hidden;position:relative}
 .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,102,255,0.08),transparent 70%);border-radius:50%}
 .hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:3px;color:#0066ff;text-transform:uppercase;margin-bottom:20px;background:#fff;padding:6px 16px;border-radius:20px;box-shadow:0 2px 12px rgba(0,102,255,0.12)}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:2px;color:#0066ff;text-transform:uppercase;margin-bottom:20px;background:#fff;padding:5px 14px;border-radius:20px;box-shadow:0 2px 12px rgba(0,102,255,0.12)}
 .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#0066ff;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.hero-h1{font-family:'Nanum Myeongjo',serif;font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.2;letter-spacing:-2px;margin-bottom:20px;color:#111}
+.hero-h1{font-family:'Nanum Myeongjo',serif;font-size:clamp(22px,2.6vw,36px);font-weight:800;line-height:1.3;letter-spacing:-1px;margin-bottom:16px;color:#111}
 .hero-h1 em{font-style:normal;background:linear-gradient(135deg,#0066ff,#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{font-size:15px;color:#555;line-height:1.9;max-width:420px}
+.hero-desc{font-size:13px;color:#555;line-height:1.9;max-width:420px}
 .hero-right{display:flex;justify-content:center;align-items:center}
 
 /* 정책 일러스트 SVG */
@@ -48,6 +48,8 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .pcard:hover{border-color:#0066ff;box-shadow:0 8px 40px rgba(0,102,255,0.12);transform:translateY(-4px)}
 .pcard.big{grid-column:span 2}
 @keyframes up{to{opacity:1;transform:translateY(0)}}
+.pc-thumb{width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:16px;display:block}
+.pcard.big .pc-thumb{height:220px}
 .pc-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .pc-cat{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0066ff;background:#f0f5ff;padding:4px 12px;border-radius:12px}
 .pc-date{font-size:12px;color:#bbb}
@@ -87,7 +89,8 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .post-cat{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0066ff;background:#f0f5ff;padding:4px 14px;border-radius:12px}
 .post-date-txt{font-size:13px;color:#bbb}
 .post-title{font-family:'Nanum Myeongjo',serif;font-size:clamp(26px,4vw,42px);font-weight:800;line-height:1.3;color:#111;margin-bottom:20px;letter-spacing:-1px}
-.post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:48px;padding-bottom:40px;border-bottom:2px solid #f0f0f0}
+.post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px;padding-bottom:32px;border-bottom:2px solid #f0f0f0}
+.post-thumb{width:100%;max-height:420px;object-fit:cover;border-radius:16px;margin-bottom:40px;display:block}
 .post-body{font-size:17px;line-height:2;color:#333}
 .post-body h1{font-family:'Nanum Myeongjo',serif;font-size:30px;font-weight:800;color:#111;margin:48px 0 16px}
 .post-body h2{font-family:'Nanum Myeongjo',serif;font-size:24px;font-weight:800;color:#111;margin:40px 0 14px;padding-bottom:12px;border-bottom:2px solid #f0f0f0}
@@ -164,7 +167,7 @@ footer b{color:rgba(255,255,255,.8)}
 <body>
 
 <header class="hdr">
-  <span class="hdr-logo" onclick="showList()">KOREA<b>BLOG</b></span>
+  <span class="hdr-logo" onclick="showList()">KOREAN<b>BLOG</b></span>
   <nav class="hdr-nav">
     <a onclick="showList()">홈</a>
     <a href="#posts">포스트</a>
@@ -177,9 +180,9 @@ footer b{color:rgba(255,255,255,.8)}
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-left">
-        <div class="hero-tag">대한민국 지원 정책 소식 블로그</div>
+        <div class="hero-tag">대한민국 지원 정책 소개 블로그</div>
         <h1 class="hero-h1">정책을 알면<br><em>혜택이 보입니다</em></h1>
-        <p class="hero-desc">지원 정책을 알기 쉽게 알려주는 정보 블로그입니다.<br>청년, 복지, 생활 정책을 쉽고 빠르게 확인하세요.</p>
+        <p class="hero-desc">지원되는 정책과 소개하는 정보 블로그입니다.<br>청년, 복지, 생활 정책을 쉽고 빠르게 확인하세요.</p>
       </div>
       <div class="hero-right">
         <!-- 정책 일러스트 SVG -->
@@ -283,6 +286,7 @@ footer b{color:rgba(255,255,255,.8)}
     </div>
     <h1 class="post-title" id="p-title"></h1>
     <div class="post-tags" id="p-tags"></div>
+    <img class="post-thumb" id="p-thumb" src="" alt="" style="display:none"/>
     <div class="post-body" id="p-body"></div>
     <div class="post-footer">
       <button class="back-btn" onclick="showList()">← 목록으로 돌아가기</button>
@@ -391,7 +395,15 @@ function render(list){
     d.className='pcard'+(i===0?' big':'');
     d.style.animationDelay=(0.05+i*0.06)+'s';
     var tags=(p.tags||[]).map(function(t){return'<span class="ptag">#'+t+'</span>'}).join('');
-    d.innerHTML='<div class="pc-top"><span class="pc-cat">'+(p.category||'기타')+'</span><span class="pc-date">'+fmtDate(p.date)+'</span></div>'
+    var thumbHtml='';
+    if(p.image){
+      var imgUrl=p.image.replace('&export=download','');
+      var driveMatch=imgUrl.match(/[?&]id=([^&]+)/);
+      if(driveMatch){imgUrl='https://drive.google.com/uc?export=view&id='+driveMatch[1];}
+      thumbHtml='<img class="pc-thumb" src="'+imgUrl+'" alt="'+esc(p.title)+'" onerror="this.style.display=\'none\'"/>';
+    }
+    d.innerHTML=thumbHtml
+      +'<div class="pc-top"><span class="pc-cat">'+(p.category||'기타')+'</span><span class="pc-date">'+fmtDate(p.date)+'</span></div>'
       +'<div class="pc-title">'+esc(p.title)+'</div>'
       +'<div class="pc-excerpt">'+(p.excerpt||'')+'</div>'
       +'<div class="pc-tags">'+tags+'</div>'
@@ -423,6 +435,20 @@ function openPost(p){
   document.getElementById('p-title').textContent=p.title;
   document.getElementById('p-body').innerHTML=p.content||'';
   document.getElementById('p-tags').innerHTML=(p.tags||[]).map(function(t){return'<span class="ptag">#'+t+'</span>'}).join('');
+  // 이미지 처리
+  var thumb=document.getElementById('p-thumb');
+  if(p.image){
+    // Google Drive webContentLink → 직접 표시 가능한 URL로 변환
+    var imgUrl=p.image.replace('&export=download','').replace('?e=download','');
+    // webContentLink 형태면 embed URL로 변환
+    var driveMatch=imgUrl.match(/[?&]id=([^&]+)/);
+    if(driveMatch){imgUrl='https://drive.google.com/uc?export=view&id='+driveMatch[1];}
+    thumb.src=imgUrl;
+    thumb.style.display='block';
+  } else {
+    thumb.src='';
+    thumb.style.display='none';
+  }
   document.getElementById('list-view').style.display='none';
   var pp=document.getElementById('post-page');
   pp.className='post-page on';
