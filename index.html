@@ -68,7 +68,13 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .moverlay.on{display:flex}
 .modal{background:#fff;max-width:720px;width:100%;border-radius:24px;overflow:hidden;position:relative;animation:up .3s ease;max-height:88vh;display:flex;flex-direction:column}
 .mhead{padding:40px 40px 28px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
-.mbody{padding:32px 40px 48px;overflow-y:auto;font-size:15px;line-height:2.1;color:#444;white-space:pre-wrap}
+.mbody{padding:32px 40px 48px;overflow-y:auto;font-size:15px;line-height:2.1;color:#444;}
+.mbody h1,.mbody h2,.mbody h3{font-family:'Nanum Myeongjo',serif;color:#111;margin:24px 0 12px}
+.mbody h2{font-size:22px}
+.mbody h3{font-size:18px;color:#333}
+.mbody p{margin-bottom:16px}
+.mbody a{color:#0066ff;text-decoration:underline}
+.mbody .divider{width:100%;height:1px;background:#f0f0f0;margin:24px 0}
 .mclose{position:absolute;top:16px;right:16px;width:36px;height:36px;border:1.5px solid #eee;background:#fff;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#888}
 .mclose:hover{border-color:#111;color:#111}
 .mtitle{font-family:'Nanum Myeongjo',serif;font-size:26px;font-weight:800;line-height:1.3;color:#111;margin-top:12px}
@@ -216,7 +222,7 @@ function openModal(p){
   document.getElementById('m-cat').textContent=p.category||'';
   document.getElementById('m-date').textContent=fmtDate(p.date);
   document.getElementById('m-title').textContent=p.title;
-  document.getElementById('m-body').textContent=p.content||'';
+  document.getElementById('m-body').innerHTML=p.content||'';
   document.getElementById('m-tags').innerHTML=(p.tags||[]).map(function(t){return'<span class="ptag">#'+t+'</span>'}).join('');
   document.getElementById('read-modal').className='moverlay on';
   document.body.style.overflow='hidden';
