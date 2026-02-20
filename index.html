@@ -1,274 +1,235 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Korean Blog</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #ffffff;
-      --surface: #f9f9f9;
-      --border: #e8e8e8;
-      --text: #1a1a1a;
-      --muted: #888888;
-      --accent: #2563eb;
-      --card: #ffffff;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Nanum Gothic', sans-serif;
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: #ffffff;
-      border-bottom: 2px solid var(--text);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 58px;
-    }
-    .logo { font-family: 'Nanum Gothic', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
-    .logo span { color: var(--accent); }
-    nav { display: flex; align-items: center; gap: 2rem; }
-    nav a { font-size: 0.85rem; color: var(--muted); text-decoration: none; font-weight: 700; transition: color 0.2s; }
-    nav a:hover { color: var(--text); }
-    .post-count { font-size: 0.75rem; color: var(--accent); border: 1px solid var(--accent); padding: 0.2rem 0.7rem; font-weight: 700; }
-    .hero {
-      max-width: 1100px; margin: 0 auto; padding: 6rem 2.5rem 4rem;
-      border-bottom: 1px solid var(--border);
-      opacity: 0; transform: translateY(20px);
-      animation: fadeUp 0.7s ease forwards 0.1s;
-    }
-    .hero-label {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; color: var(--accent);
-      text-transform: uppercase; margin-bottom: 1.2rem;
-      display: flex; align-items: center; gap: 0.8rem;
-    }
-    .hero-label::before { content: ''; width: 28px; height: 2px; background: var(--accent); }
-    .hero h1 {
-      font-family: 'Nanum Myeongjo', serif; font-size: clamp(2.2rem, 5vw, 4rem);
-      font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1.5rem;
-    }
-    .hero h1 em { font-style: normal; color: var(--accent); border-bottom: 3px solid var(--accent); }
-    .hero p { font-size: 1rem; color: var(--muted); max-width: 500px; }
-    .filter-bar {
-      max-width: 1100px; margin: 0 auto; padding: 1.5rem 2.5rem;
-      display: flex; gap: 0.5rem; flex-wrap: wrap;
-      border-bottom: 1px solid var(--border);
-      opacity: 0; animation: fadeUp 0.7s ease forwards 0.25s;
-    }
-    .filter-btn {
-      font-family: 'Nanum Gothic', sans-serif; font-size: 0.8rem; font-weight: 700;
-      padding: 0.35rem 1rem; border: 1px solid var(--border);
-      background: none; color: var(--muted); cursor: pointer; transition: all 0.15s;
-    }
-    .filter-btn:hover { border-color: var(--text); color: var(--text); }
-    .filter-btn.active { background: var(--text); border-color: var(--text); color: #fff; }
-    .grid {
-      max-width: 1100px; margin: 0 auto; padding: 2rem 2.5rem 6rem;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-    }
-    .post-card {
-      background: var(--card); border: 1px solid var(--border);
-      padding: 1.8rem; cursor: pointer;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-      opacity: 0; animation: fadeUp 0.5s ease forwards;
-      display: flex; flex-direction: column;
-    }
-    .post-card:hover { border-color: var(--accent); box-shadow: 0 4px 24px rgba(37,99,235,0.08); transform: translateY(-3px); }
-    .post-card.featured { grid-column: span 2; }
-    .card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem; }
-    .card-category {
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--accent); background: rgba(37,99,235,0.07);
-      border: 1px solid rgba(37,99,235,0.15); padding: 0.15rem 0.55rem;
-    }
-    .card-date { font-size: 0.72rem; color: var(--muted); }
-    .card-title { font-family: 'Nanum Myeongjo', serif; font-weight: 700; font-size: 1.1rem; line-height: 1.4; margin-bottom: 0.7rem; }
-    .post-card.featured .card-title { font-size: 1.4rem; }
-    .card-excerpt { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; flex: 1; }
-    .card-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .tag { font-size: 0.7rem; color: var(--muted); border: 1px solid var(--border); padding: 0.1rem 0.45rem; }
-    .card-read {
-      font-size: 0.78rem; font-weight: 700; color: var(--muted);
-      display: flex; align-items: center; gap: 0.3rem;
-      transition: color 0.2s, gap 0.2s;
-      border-top: 1px solid var(--border); padding-top: 0.9rem;
-    }
-    .post-card:hover .card-read { color: var(--accent); gap: 0.6rem; }
-    .modal-overlay {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-      z-index: 500; align-items: center; justify-content: center;
-      padding: 2rem 1rem; overflow-y: auto;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: #fff; max-width: 700px; width: 100%; margin: auto;
-      border-top: 3px solid var(--accent); position: relative;
-      animation: fadeUp 0.25s ease; max-height: 85vh; overflow-y: auto;
-    }
-    .modal-header { padding: 2.5rem 2.5rem 1.5rem; border-bottom: 1px solid var(--border); }
-    .modal-body-content { padding: 2rem 2.5rem 3rem; font-size: 0.95rem; line-height: 2; color: #333; white-space: pre-wrap; }
-    .modal-close {
-      position: absolute; top: 1.2rem; right: 1.2rem;
-      background: none; border: 1px solid var(--border); color: var(--muted);
-      width: 32px; height: 32px; font-size: 1rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: all 0.15s;
-    }
-    .modal-close:hover { border-color: var(--text); color: var(--text); }
-    .modal-title { font-family: 'Nanum Myeongjo', serif; font-size: 1.6rem; font-weight: 800; line-height: 1.3; margin-top: 0.8rem; }
-    .empty { grid-column: span 3; padding: 5rem; text-align: center; color: var(--muted); font-size: 0.9rem; display: none; }
-    .empty.show { display: block; }
-    .loading { grid-column: span 3; padding: 4rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
-    footer { background: var(--text); color: rgba(255,255,255,0.5); display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2.5rem; font-size: 0.78rem; }
-    footer span { color: rgba(255,255,255,0.8); }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 768px) {
-      .post-card, .post-card.featured { grid-column: span 3; }
-      .grid { grid-template-columns: 1fr; }
-      .empty, .loading { grid-column: span 1; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korean Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.7;min-height:100vh}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px}
+.hdr-logo{font-family:'Nanum Gothic',sans-serif;font-weight:800;font-size:15px;color:#111;text-decoration:none;letter-spacing:3px}
+.hdr-logo b{color:#0066ff}
+.hdr-nav{display:flex;align-items:center;gap:32px}
+.hdr-nav a{font-size:13px;color:#888;text-decoration:none;font-weight:700;letter-spacing:1px;transition:color .2s}
+.hdr-nav a:hover{color:#111}
+.hdr-cnt{font-size:12px;color:#0066ff;border:1px solid #0066ff;padding:3px 12px;font-weight:800;letter-spacing:1px;border-radius:20px}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:#ffffff;padding:100px 40px 80px;max-width:1200px;margin:0 auto}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-left{}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:3px;color:#0066ff;text-transform:uppercase;margin-bottom:24px;background:#f0f5ff;padding:6px 16px;border-radius:20px}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#0066ff;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.hero-h1{font-family:'Nanum Myeongjo',serif;font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.15;letter-spacing:-2px;margin-bottom:24px;color:#111}
+.hero-h1 em{font-style:normal;background:linear-gradient(135deg,#0066ff,#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:15px;color:#666;line-height:1.9;max-width:440px}
+.hero-right{display:flex;justify-content:center;align-items:center}
+.hero-visual{position:relative;width:280px;height:280px}
+.hero-circle{position:absolute;border-radius:50%}
+.hc1{width:280px;height:280px;background:linear-gradient(135deg,#e8f0ff,#f0f8ff);animation:spin1 20s linear infinite}
+.hc2{width:200px;height:200px;top:40px;left:40px;background:linear-gradient(135deg,#ddeeff,#e8f5ff);animation:spin1 15s linear infinite reverse;border:2px solid rgba(0,102,255,0.1)}
+.hc3{width:120px;height:120px;top:80px;left:80px;background:linear-gradient(135deg,#0066ff,#00aaff);display:flex;align-items:center;justify-content:center}
+.hc3-text{color:#fff;font-weight:800;font-size:11px;letter-spacing:2px;text-align:center;line-height:1.6}
+@keyframes spin1{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.hero-dots{position:absolute;top:0;right:0;width:100px;height:100px;background-image:radial-gradient(circle,#0066ff 1px,transparent 1px);background-size:12px 12px;opacity:0.15}
+
+/* FILTER */
+.filter-wrap{max-width:1200px;margin:0 auto;padding:0 40px 32px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #f0f0f0}
+.fbtn{font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700;padding:8px 20px;border:1.5px solid #e5e5e5;background:#fff;color:#888;cursor:pointer;border-radius:24px;transition:all .2s;letter-spacing:.5px}
+.fbtn:hover{border-color:#0066ff;color:#0066ff;background:#f0f5ff}
+.fbtn.on{background:#0066ff;border-color:#0066ff;color:#fff}
+
+/* GRID */
+.grid-wrap{max-width:1200px;margin:0 auto;padding:48px 40px 100px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pcard{background:#fff;border:1.5px solid #f0f0f0;border-radius:16px;padding:28px;cursor:pointer;transition:all .25s;opacity:0;transform:translateY(16px);animation:up .5s ease forwards}
+.pcard:hover{border-color:#0066ff;box-shadow:0 8px 40px rgba(0,102,255,0.12);transform:translateY(-4px)}
+.pcard.big{grid-column:span 2}
+@keyframes up{to{opacity:1;transform:translateY(0)}}
+
+.pc-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.pc-cat{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0066ff;background:#f0f5ff;padding:4px 12px;border-radius:12px}
+.pc-date{font-size:12px;color:#bbb}
+.pc-title{font-family:'Nanum Myeongjo',serif;font-weight:700;font-size:18px;line-height:1.4;margin-bottom:12px;color:#111}
+.pcard.big .pc-title{font-size:24px}
+.pc-excerpt{font-size:14px;color:#888;line-height:1.8;margin-bottom:16px}
+.pc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.ptag{font-size:11px;color:#aaa;border:1px solid #eee;padding:2px 10px;border-radius:10px}
+.pc-read{font-size:13px;font-weight:800;color:#bbb;display:flex;align-items:center;gap:6px;transition:all .2s;padding-top:16px;border-top:1px solid #f5f5f5;letter-spacing:1px}
+.pcard:hover .pc-read{color:#0066ff;gap:10px}
+
+/* MODAL */
+.moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:2000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px)}
+.moverlay.on{display:flex}
+.modal{background:#fff;max-width:720px;width:100%;border-radius:24px;overflow:hidden;position:relative;animation:up .3s ease;max-height:88vh;display:flex;flex-direction:column}
+.mhead{padding:40px 40px 28px;border-bottom:1px solid #f0f0f0;flex-shrink:0}
+.mbody{padding:32px 40px 48px;overflow-y:auto;font-size:15px;line-height:2.1;color:#444;white-space:pre-wrap}
+.mclose{position:absolute;top:16px;right:16px;width:36px;height:36px;border:1.5px solid #eee;background:#fff;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#888}
+.mclose:hover{border-color:#111;color:#111}
+.mtitle{font-family:'Nanum Myeongjo',serif;font-size:26px;font-weight:800;line-height:1.3;color:#111;margin-top:12px}
+
+/* LOADING/EMPTY */
+.msg{grid-column:span 3;padding:80px;text-align:center;font-size:14px;color:#bbb;font-weight:700;letter-spacing:2px}
+
+/* FOOTER */
+footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:space-between;align-items:center;padding:28px 40px;font-size:13px;font-weight:700;letter-spacing:1px}
+footer b{color:rgba(255,255,255,.8)}
+
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .grid-wrap{grid-template-columns:1fr}
+  .pcard.big{grid-column:span 1}
+  .hdr{padding:0 20px}
+  .hero,.filter-wrap,.grid-wrap{padding-left:20px;padding-right:20px}
+  .msg{grid-column:span 1}
+}
+</style>
 </head>
 <body>
 
-<header>
-  <a href="#" class="logo">KOREAN<span>BLOG</span></a>
-  <nav>
+<header class="hdr">
+  <a href="#" class="hdr-logo">KOREAN<b>BLOG</b></a>
+  <nav class="hdr-nav">
     <a href="#">홈</a>
     <a href="#posts">포스트</a>
-    <span class="post-count" id="post-count">0개의 글</span>
+    <span class="hdr-cnt" id="post-count">0개의 글</span>
   </nav>
 </header>
 
 <section class="hero">
-  <p class="hero-label">AI 자동 발행 블로그</p>
-  <h1>생각을 기록하고<br><em>세상과 나눕니다</em></h1>
-  <p>Gemini가 작성하고 n8n이 자동 발행하는 블로그입니다.<br>매일 새로운 글이 올라옵니다.</p>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-tag">AI 자동 발행 블로그</div>
+      <h1 class="hero-h1">생각을 기록하고<br><em>세상과 나눕니다</em></h1>
+      <p class="hero-desc">Gemini가 작성하고 n8n이 자동 발행하는 블로그입니다.<br>매일 새로운 글이 업데이트됩니다.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hero-dots"></div>
+        <div class="hero-circle hc1"></div>
+        <div class="hero-circle hc2"></div>
+        <div class="hero-circle hc3">
+          <div class="hc3-text">AI<br>BLOG</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="filter-bar" id="filter-bar">
-  <button class="filter-btn active" data-filter="all" onclick="filterPosts('all', this)">전체</button>
+<div class="filter-wrap" id="filter-bar">
+  <button class="fbtn on" onclick="filterPosts('all',this)">전체</button>
 </div>
 
-<div class="grid" id="posts-grid">
-  <div class="loading">글을 불러오는 중...</div>
+<div class="grid-wrap" id="posts-grid">
+  <div class="msg">글을 불러오는 중...</div>
 </div>
 
-<div class="modal-overlay" id="read-modal" onclick="handleOverlayClick(event)">
+<div class="moverlay" id="read-modal" onclick="overlayClick(event)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-header">
-      <div class="card-top">
-        <span class="card-category" id="m-category"></span>
-        <span class="card-date" id="m-date"></span>
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div class="mhead">
+      <div class="pc-top">
+        <span class="pc-cat" id="m-cat"></span>
+        <span class="pc-date" id="m-date"></span>
       </div>
-      <div class="modal-title" id="m-title"></div>
-      <div class="card-tags" id="m-tags" style="margin-top:0.7rem;"></div>
+      <div class="mtitle" id="m-title"></div>
+      <div class="pc-tags" id="m-tags" style="margin-top:12px"></div>
     </div>
-    <div class="modal-body-content" id="m-body"></div>
+    <div class="mbody" id="m-body"></div>
   </div>
 </div>
 
 <footer>
-  <span>Korean Blog — Powered by n8n × GitHub Pages</span>
-  <span id="footer-updated"></span>
+  <b>Korean Blog</b> — Powered by n8n × GitHub Pages
+  <span id="footer-date"></span>
 </footer>
 
 <script>
-  let allPosts = [];
+var posts=[];
 
-  async function loadPosts() {
-    try {
-      const res = await fetch('posts.json?t=' + Date.now());
-      if (!res.ok) throw new Error();
-      allPosts = await res.json();
-      init();
-    } catch(e) {
-      document.getElementById('posts-grid').innerHTML = '<div class="loading" style="color:red;">posts.json을 불러올 수 없습니다.</div>';
-    }
-  }
-
-  function init() {
-    buildFilters();
-    renderPosts(allPosts);
-    document.getElementById('post-count').textContent = allPosts.length + '개의 글';
-    const latest = [...allPosts].reverse()[0];
-    if (latest) document.getElementById('footer-updated').textContent = 'Last updated: ' + latest.date;
-  }
-
-  function buildFilters() {
-    const cats = [...new Set(allPosts.map(p => p.category).filter(Boolean))];
-    const bar = document.getElementById('filter-bar');
-    cats.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = 'filter-btn';
-      btn.textContent = cat;
-      btn.onclick = () => filterPosts(cat, btn);
-      bar.appendChild(btn);
+function loadPosts(){
+  fetch('posts.json?v='+Date.now())
+    .then(function(r){if(!r.ok)throw new Error();return r.json()})
+    .then(function(data){posts=data;init()})
+    .catch(function(){
+      document.getElementById('posts-grid').innerHTML='<div class="msg" style="color:#ff4444">posts.json을 불러올 수 없습니다</div>';
     });
-  }
+}
 
-  function filterPosts(filter, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filtered = filter === 'all' ? allPosts : allPosts.filter(p => p.category === filter);
-    renderPosts(filtered);
-  }
+function init(){
+  buildFilters();
+  render(posts);
+  document.getElementById('post-count').textContent=posts.length+'개의 글';
+  var rev=[].concat(posts).reverse();
+  if(rev[0]) document.getElementById('footer-date').textContent='Last: '+rev[0].date;
+}
 
-  function renderPosts(posts) {
-    const grid = document.getElementById('posts-grid');
-    grid.innerHTML = '';
-    if (!posts.length) { grid.innerHTML = '<div class="empty show">글이 없습니다.</div>'; return; }
-    [...posts].reverse().forEach((post, i) => {
-      const card = document.createElement('div');
-      card.className = 'post-card' + (i === 0 ? ' featured' : '');
-      card.style.animationDelay = (0.05 + i * 0.07) + 's';
-      card.innerHTML = `
-        <div class="card-top">
-          <span class="card-category">${post.category||'기타'}</span>
-          <span class="card-date">${formatDate(post.date)}</span>
-        </div>
-        <div class="card-title">${post.title}</div>
-        <div class="card-excerpt">${post.excerpt||''}</div>
-        <div class="card-tags">${(post.tags||[]).map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
-        <div class="card-read">읽기 →</div>
-      `;
-      card.onclick = () => openModal(post);
-      grid.appendChild(card);
-    });
-  }
+function buildFilters(){
+  var cats=[],bar=document.getElementById('filter-bar');
+  posts.forEach(function(p){if(p.category&&cats.indexOf(p.category)<0)cats.push(p.category)});
+  cats.forEach(function(c){
+    var b=document.createElement('button');
+    b.className='fbtn';b.textContent=c;
+    b.onclick=function(){filterPosts(c,b)};
+    bar.appendChild(b);
+  });
+}
 
-  function formatDate(d) {
-    if (!d) return '';
-    const dt = new Date(d);
-    return `${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
-  }
+function filterPosts(f,btn){
+  document.querySelectorAll('.fbtn').forEach(function(b){b.className='fbtn'});
+  btn.className='fbtn on';
+  render(f==='all'?posts:posts.filter(function(p){return p.category===f}));
+}
 
-  function openModal(post) {
-    document.getElementById('m-category').textContent = post.category||'';
-    document.getElementById('m-date').textContent = formatDate(post.date);
-    document.getElementById('m-title').textContent = post.title;
-    document.getElementById('m-body').textContent = post.content||'';
-    document.getElementById('m-tags').innerHTML = (post.tags||[]).map(t=>`<span class="tag">#${t}</span>`).join('');
-    document.getElementById('read-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+function render(list){
+  var g=document.getElementById('posts-grid');
+  g.innerHTML='';
+  if(!list.length){g.innerHTML='<div class="msg">글이 없습니다</div>';return}
+  [].concat(list).reverse().forEach(function(p,i){
+    var d=document.createElement('div');
+    d.className='pcard'+(i===0?' big':'');
+    d.style.animationDelay=(0.05+i*0.06)+'s';
+    var tags=(p.tags||[]).map(function(t){return'<span class="ptag">#'+t+'</span>'}).join('');
+    d.innerHTML='<div class="pc-top"><span class="pc-cat">'+(p.category||'기타')+'</span><span class="pc-date">'+fmtDate(p.date)+'</span></div>'
+      +'<div class="pc-title">'+p.title+'</div>'
+      +'<div class="pc-excerpt">'+(p.excerpt||'')+'</div>'
+      +'<div class="pc-tags">'+tags+'</div>'
+      +'<div class="pc-read">읽기 →</div>';
+    d.onclick=function(){openModal(p)};
+    g.appendChild(d);
+  });
+}
 
-  function closeModal() {
-    document.getElementById('read-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+function fmtDate(d){
+  if(!d)return'';
+  var dt=new Date(d);
+  return dt.getFullYear()+'.'+(dt.getMonth()+1+'').padStart(2,'0')+'.'+(''+dt.getDate()).padStart(2,'0');
+}
 
-  function handleOverlayClick(e) { if (e.target === e.currentTarget) closeModal(); }
+function openModal(p){
+  document.getElementById('m-cat').textContent=p.category||'';
+  document.getElementById('m-date').textContent=fmtDate(p.date);
+  document.getElementById('m-title').textContent=p.title;
+  document.getElementById('m-body').textContent=p.content||'';
+  document.getElementById('m-tags').innerHTML=(p.tags||[]).map(function(t){return'<span class="ptag">#'+t+'</span>'}).join('');
+  document.getElementById('read-modal').className='moverlay on';
+  document.body.style.overflow='hidden';
+}
 
-  loadPosts();
+function closeModal(){
+  document.getElementById('read-modal').className='moverlay';
+  document.body.style.overflow='';
+}
+
+function overlayClick(e){if(e.target===e.currentTarget)closeModal();}
+
+loadPosts();
 </script>
 </body>
 </html>
