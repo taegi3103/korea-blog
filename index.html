@@ -11,7 +11,7 @@ html{scroll-behavior:smooth;font-size:16px}
 body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.7;min-height:100vh}
 
 /* HEADER */
-.hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px}
+.hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px}
 .hdr-logo{font-family:'Nanum Gothic',sans-serif;font-weight:800;font-size:15px;color:#111;text-decoration:none;letter-spacing:3px;cursor:pointer}
 .hdr-logo b{color:#0066ff}
 .hdr-nav{display:flex;align-items:center;gap:32px}
@@ -20,33 +20,31 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .hdr-cnt{font-size:12px;color:#0066ff;border:1px solid #0066ff;padding:3px 12px;font-weight:800;letter-spacing:1px;border-radius:20px}
 
 /* HERO */
-.hero{position:relative;overflow:hidden;background:#ffffff;padding:100px 40px 80px;max-width:1200px;margin:0 auto}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:3px;color:#0066ff;text-transform:uppercase;margin-bottom:24px;background:#f0f5ff;padding:6px 16px;border-radius:20px}
+.hero{background:linear-gradient(135deg,#f0f5ff 0%,#e8f4ff 100%);padding:80px 40px;overflow:hidden;position:relative}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(0,102,255,0.08),transparent 70%);border-radius:50%}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:3px;color:#0066ff;text-transform:uppercase;margin-bottom:20px;background:#fff;padding:6px 16px;border-radius:20px;box-shadow:0 2px 12px rgba(0,102,255,0.12)}
 .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:#0066ff;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.hero-h1{font-family:'Nanum Myeongjo',serif;font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.15;letter-spacing:-2px;margin-bottom:24px;color:#111}
+.hero-h1{font-family:'Nanum Myeongjo',serif;font-size:clamp(32px,4vw,56px);font-weight:800;line-height:1.2;letter-spacing:-2px;margin-bottom:20px;color:#111}
 .hero-h1 em{font-style:normal;background:linear-gradient(135deg,#0066ff,#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{font-size:15px;color:#666;line-height:1.9;max-width:440px}
+.hero-desc{font-size:15px;color:#555;line-height:1.9;max-width:420px}
 .hero-right{display:flex;justify-content:center;align-items:center}
-.hero-visual{position:relative;width:280px;height:280px}
-.hero-circle{position:absolute;border-radius:50%}
-.hc1{width:280px;height:280px;background:linear-gradient(135deg,#e8f0ff,#f0f8ff);animation:spin1 20s linear infinite}
-.hc2{width:200px;height:200px;top:40px;left:40px;background:linear-gradient(135deg,#ddeeff,#e8f5ff);animation:spin1 15s linear infinite reverse;border:2px solid rgba(0,102,255,0.1)}
-.hc3{width:120px;height:120px;top:80px;left:80px;background:linear-gradient(135deg,#0066ff,#00aaff);display:flex;align-items:center;justify-content:center}
-.hc3-text{color:#fff;font-weight:800;font-size:11px;letter-spacing:2px;text-align:center;line-height:1.6}
-@keyframes spin1{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.hero-dots{position:absolute;top:0;right:0;width:100px;height:100px;background-image:radial-gradient(circle,#0066ff 1px,transparent 1px);background-size:12px 12px;opacity:0.15}
+
+/* 정책 일러스트 SVG */
+.policy-illust{width:100%;max-width:420px;filter:drop-shadow(0 20px 60px rgba(0,102,255,0.15))}
 
 /* FILTER */
-.filter-wrap{max-width:1200px;margin:0 auto;padding:0 40px 32px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #f0f0f0}
+.filter-wrap{max-width:1200px;margin:0 auto;padding:40px 40px 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.filter-left{display:flex;gap:8px;flex-wrap:wrap}
 .fbtn{font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700;padding:8px 20px;border:1.5px solid #e5e5e5;background:#fff;color:#888;cursor:pointer;border-radius:24px;transition:all .2s;letter-spacing:.5px}
 .fbtn:hover{border-color:#0066ff;color:#0066ff;background:#f0f5ff}
 .fbtn.on{background:#0066ff;border-color:#0066ff;color:#fff}
+.filter-divider{border-bottom:1px solid #f0f0f0;max-width:1200px;margin:0 auto;padding:0 40px}
 
 /* GRID */
-.grid-wrap{max-width:1200px;margin:0 auto;padding:48px 40px 100px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.pcard{background:#fff;border:1.5px solid #f0f0f0;border-radius:16px;padding:28px;cursor:pointer;transition:all .25s;opacity:0;transform:translateY(16px);animation:up .5s ease forwards}
+.grid-wrap{max-width:1200px;margin:0 auto;padding:32px 40px 100px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pcard{background:#fff;border:1.5px solid #f0f0f0;border-radius:16px;padding:28px;cursor:pointer;transition:all .25s;opacity:0;transform:translateY(16px);animation:up .5s ease forwards;position:relative}
 .pcard:hover{border-color:#0066ff;box-shadow:0 8px 40px rgba(0,102,255,0.12);transform:translateY(-4px)}
 .pcard.big{grid-column:span 2}
 @keyframes up{to{opacity:1;transform:translateY(0)}}
@@ -58,8 +56,16 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .pc-excerpt{font-size:14px;color:#888;line-height:1.8;margin-bottom:16px}
 .pc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
 .ptag{font-size:11px;color:#aaa;border:1px solid #eee;padding:2px 10px;border-radius:10px}
-.pc-read{font-size:13px;font-weight:800;color:#bbb;display:flex;align-items:center;gap:6px;transition:all .2s;padding-top:16px;border-top:1px solid #f5f5f5;letter-spacing:1px}
+.pc-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid #f5f5f5}
+.pc-read{font-size:13px;font-weight:800;color:#bbb;display:flex;align-items:center;gap:6px;transition:all .2s;letter-spacing:1px}
 .pcard:hover .pc-read{color:#0066ff;gap:10px}
+.pc-actions{display:flex;gap:6px;opacity:0;transition:opacity .2s}
+.pcard:hover .pc-actions{opacity:1}
+.pc-edit,.pc-del{font-size:11px;font-weight:800;padding:4px 10px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.pc-edit{background:#f0f5ff;color:#0066ff}
+.pc-edit:hover{background:#0066ff;color:#fff}
+.pc-del{background:#fff0f0;color:#ff4444}
+.pc-del:hover{background:#ff4444;color:#fff}
 
 /* POST PAGE */
 .post-page{display:none;min-height:100vh;background:#fff;animation:fadeIn .3s ease}
@@ -70,6 +76,12 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .post-back:hover{color:#0066ff}
 .post-back svg{transition:transform .2s}
 .post-back:hover svg{transform:translateX(-4px)}
+.post-hdr-actions{display:flex;gap:8px}
+.btn-edit-post,.btn-del-post{font-size:12px;font-weight:800;padding:6px 16px;border-radius:20px;border:none;cursor:pointer;transition:all .2s;font-family:'Nanum Gothic',sans-serif;letter-spacing:.5px}
+.btn-edit-post{background:#f0f5ff;color:#0066ff}
+.btn-edit-post:hover{background:#0066ff;color:#fff}
+.btn-del-post{background:#fff0f0;color:#ff4444}
+.btn-del-post:hover{background:#ff4444;color:#fff}
 .post-wrap{max-width:760px;margin:0 auto;padding:64px 40px 120px}
 .post-meta{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .post-cat{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0066ff;background:#f0f5ff;padding:4px 14px;border-radius:12px}
@@ -91,6 +103,43 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .back-btn{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:800;color:#0066ff;cursor:pointer;background:#f0f5ff;border:none;padding:14px 36px;border-radius:32px;transition:all .2s;font-family:'Nanum Gothic',sans-serif;letter-spacing:1px}
 .back-btn:hover{background:#0066ff;color:#fff}
 
+/* EDIT MODAL */
+.edit-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:4000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px)}
+.edit-overlay.on{display:flex}
+.edit-modal{background:#fff;max-width:680px;width:100%;border-radius:24px;overflow:hidden;animation:up .3s ease;max-height:90vh;display:flex;flex-direction:column}
+.edit-modal-hdr{padding:28px 32px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.edit-modal-hdr h3{font-family:'Nanum Myeongjo',serif;font-size:20px;font-weight:800;color:#111}
+.edit-close{width:32px;height:32px;border:1.5px solid #eee;background:#fff;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#888}
+.edit-close:hover{border-color:#111;color:#111}
+.edit-body{padding:24px 32px;overflow-y:auto;flex:1}
+.edit-field{margin-bottom:20px}
+.edit-field label{display:block;font-size:12px;font-weight:800;color:#888;letter-spacing:1px;margin-bottom:8px}
+.edit-field input,.edit-field textarea,.edit-field select{width:100%;border:1.5px solid #e5e5e5;border-radius:10px;padding:12px 16px;font-size:14px;font-family:'Nanum Gothic',sans-serif;color:#111;transition:border .2s;outline:none;background:#fff}
+.edit-field input:focus,.edit-field textarea:focus,.edit-field select:focus{border-color:#0066ff}
+.edit-field textarea{resize:vertical;min-height:200px;line-height:1.6}
+.edit-foot{padding:20px 32px 28px;border-top:1px solid #f0f0f0;display:flex;gap:10px;justify-content:flex-end;flex-shrink:0}
+.btn-save{background:#0066ff;color:#fff;border:none;padding:12px 28px;border-radius:16px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nanum Gothic',sans-serif;transition:all .2s}
+.btn-save:hover{background:#0044cc}
+.btn-cancel{background:#f5f5f5;color:#888;border:none;padding:12px 28px;border-radius:16px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nanum Gothic',sans-serif;transition:all .2s}
+.btn-cancel:hover{background:#e5e5e5}
+
+/* DELETE CONFIRM */
+.del-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:4000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px)}
+.del-overlay.on{display:flex}
+.del-modal{background:#fff;max-width:400px;width:100%;border-radius:24px;padding:40px 32px;text-align:center;animation:up .3s ease}
+.del-icon{font-size:48px;margin-bottom:16px}
+.del-modal h3{font-family:'Nanum Myeongjo',serif;font-size:20px;font-weight:800;color:#111;margin-bottom:12px}
+.del-modal p{font-size:14px;color:#888;line-height:1.7;margin-bottom:28px}
+.del-btns{display:flex;gap:10px;justify-content:center}
+.btn-del-confirm{background:#ff4444;color:#fff;border:none;padding:12px 28px;border-radius:16px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nanum Gothic',sans-serif;transition:all .2s}
+.btn-del-confirm:hover{background:#cc0000}
+.btn-del-cancel{background:#f5f5f5;color:#888;border:none;padding:12px 28px;border-radius:16px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nanum Gothic',sans-serif;transition:all .2s}
+.btn-del-cancel:hover{background:#e5e5e5}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:14px 28px;border-radius:32px;font-size:14px;font-weight:800;letter-spacing:.5px;opacity:0;transition:all .3s;z-index:9999;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
 /* LOADING/EMPTY */
 .msg{grid-column:span 3;padding:80px;text-align:center;font-size:14px;color:#bbb;font-weight:700;letter-spacing:2px}
 
@@ -99,7 +148,7 @@ footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:s
 footer b{color:rgba(255,255,255,.8)}
 
 @media(max-width:768px){
-  .hero-grid{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr}
   .hero-right{display:none}
   .grid-wrap{grid-template-columns:1fr}
   .pcard.big{grid-column:span 1}
@@ -108,13 +157,14 @@ footer b{color:rgba(255,255,255,.8)}
   .hero,.filter-wrap,.grid-wrap{padding-left:20px;padding-right:20px}
   .post-wrap{padding:40px 20px 80px}
   .msg{grid-column:span 1}
+  .filter-wrap{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 <body>
 
 <header class="hdr">
-  <span class="hdr-logo" onclick="showList()">KOREAN<b>BLOG</b></span>
+  <span class="hdr-logo" onclick="showList()">KOREA<b>BLOG</b></span>
   <nav class="hdr-nav">
     <a onclick="showList()">홈</a>
     <a href="#posts">포스트</a>
@@ -125,28 +175,83 @@ footer b{color:rgba(255,255,255,.8)}
 <!-- 목록 뷰 -->
 <div id="list-view">
   <section class="hero">
-    <div class="hero-grid">
+    <div class="hero-inner">
       <div class="hero-left">
-        <div class="hero-tag">대한민국 지원 정책 소개 블로그</div>
-        <h1 class="hero-h1">생각을 기록하고<br><em>세상과 나눕니다</em></h1>
-        <p class="hero-desc">지원 정책을 소개하고 알리는 블로그입니다.<br>매일 새로운 글이 업데이트됩니다.</p>
+        <div class="hero-tag">대한민국 지원 정책 소식 블로그</div>
+        <h1 class="hero-h1">정책을 알면<br><em>혜택이 보입니다</em></h1>
+        <p class="hero-desc">지원 정책을 알기 쉽게 알려주는 정보 블로그입니다.<br>청년, 복지, 생활 정책을 쉽고 빠르게 확인하세요.</p>
       </div>
       <div class="hero-right">
-        <div class="hero-visual">
-          <div class="hero-dots"></div>
-          <div class="hero-circle hc1"></div>
-          <div class="hero-circle hc2"></div>
-          <div class="hero-circle hc3">
-            <div class="hc3-text">AI<br>BLOG</div>
-          </div>
-        </div>
+        <!-- 정책 일러스트 SVG -->
+        <svg class="policy-illust" viewBox="0 0 420 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 배경 카드 -->
+          <rect x="20" y="30" width="380" height="300" rx="24" fill="white" filter="url(#shadow)"/>
+          <defs>
+            <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#0066ff" flood-opacity="0.10"/>
+            </filter>
+          </defs>
+
+          <!-- 상단 헤더 바 -->
+          <rect x="20" y="30" width="380" height="60" rx="24" fill="url(#headerGrad)"/>
+          <rect x="20" y="66" width="380" height="24" fill="url(#headerGrad)"/>
+          <defs>
+            <linearGradient id="headerGrad" x1="0" y1="0" x2="380" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0055dd"/>
+              <stop offset="100%" stop-color="#0099ff"/>
+            </linearGradient>
+          </defs>
+          <text x="44" y="67" font-family="sans-serif" font-size="14" font-weight="bold" fill="white" letter-spacing="1">정부 청년 지원 정책</text>
+          <circle cx="368" cy="60" r="8" fill="rgba(255,255,255,0.3)"/>
+          <circle cx="348" cy="60" r="8" fill="rgba(255,255,255,0.2)"/>
+          <circle cx="328" cy="60" r="8" fill="rgba(255,255,255,0.15)"/>
+
+          <!-- 통계 카드 3개 -->
+          <rect x="36" y="108" width="100" height="72" rx="14" fill="#f0f5ff"/>
+          <text x="86" y="133" font-family="sans-serif" font-size="10" fill="#0066ff" font-weight="bold" text-anchor="middle">월세 지원</text>
+          <text x="86" y="158" font-family="sans-serif" font-size="20" fill="#0066ff" font-weight="bold" text-anchor="middle">20만원</text>
+          <text x="86" y="172" font-family="sans-serif" font-size="9" fill="#aaa" text-anchor="middle">월 최대</text>
+
+          <rect x="156" y="108" width="100" height="72" rx="14" fill="#f0fff5"/>
+          <text x="206" y="133" font-family="sans-serif" font-size="10" fill="#00aa55" font-weight="bold" text-anchor="middle">신청 대상</text>
+          <text x="206" y="158" font-family="sans-serif" font-size="20" fill="#00aa55" font-weight="bold" text-anchor="middle">19~34세</text>
+          <text x="206" y="172" font-family="sans-serif" font-size="9" fill="#aaa" text-anchor="middle">청년 기준</text>
+
+          <rect x="276" y="108" width="100" height="72" rx="14" fill="#fff8f0"/>
+          <text x="326" y="133" font-family="sans-serif" font-size="10" fill="#ff8800" font-weight="bold" text-anchor="middle">지원 기간</text>
+          <text x="326" y="158" font-family="sans-serif" font-size="20" fill="#ff8800" font-weight="bold" text-anchor="middle">12개월</text>
+          <text x="326" y="172" font-family="sans-serif" font-size="9" fill="#aaa" text-anchor="middle">최대</text>
+
+          <!-- 체크리스트 -->
+          <rect x="36" y="196" width="340" height="32" rx="10" fill="#f8f9fa"/>
+          <circle cx="56" cy="212" r="8" fill="#0066ff"/>
+          <text x="53" y="216" font-family="sans-serif" font-size="10" fill="white" font-weight="bold" text-anchor="middle">✓</text>
+          <text x="72" y="216" font-family="sans-serif" font-size="12" fill="#333">무주택 청년 가구 우선 지원</text>
+
+          <rect x="36" y="234" width="340" height="32" rx="10" fill="#f8f9fa"/>
+          <circle cx="56" cy="250" r="8" fill="#0066ff"/>
+          <text x="53" y="254" font-family="sans-serif" font-size="10" fill="white" font-weight="bold" text-anchor="middle">✓</text>
+          <text x="72" y="254" font-family="sans-serif" font-size="12" fill="#333">온라인 간편 신청 (정부24, 복지로)</text>
+
+          <rect x="36" y="272" width="340" height="32" rx="10" fill="#f8f9fa"/>
+          <circle cx="56" cy="288" r="8" fill="#00aa55"/>
+          <text x="53" y="292" font-family="sans-serif" font-size="10" fill="white" font-weight="bold" text-anchor="middle">✓</text>
+          <text x="72" y="292" font-family="sans-serif" font-size="12" fill="#333">매월 계좌 직접 지급</text>
+
+          <!-- 우측 상단 뱃지 -->
+          <rect x="290" y="18" width="80" height="28" rx="14" fill="#0066ff"/>
+          <text x="330" y="36" font-family="sans-serif" font-size="11" fill="white" font-weight="bold" text-anchor="middle">2026 NEW</text>
+        </svg>
       </div>
     </div>
   </section>
 
-  <div class="filter-wrap" id="filter-bar">
-    <button class="fbtn on" onclick="filterPosts('all',this)">전체</button>
+  <div class="filter-wrap" id="filter-bar-wrap">
+    <div class="filter-left" id="filter-bar">
+      <button class="fbtn on" onclick="filterPosts('all',this)">전체</button>
+    </div>
   </div>
+  <div class="filter-divider"></div>
 
   <div class="grid-wrap" id="posts-grid">
     <div class="msg">글을 불러오는 중...</div>
@@ -166,7 +271,10 @@ footer b{color:rgba(255,255,255,.8)}
       목록으로
     </button>
     <span class="hdr-logo" onclick="showList()">KOREAN<b>BLOG</b></span>
-    <div style="width:80px"></div>
+    <div class="post-hdr-actions">
+      <button class="btn-edit-post" onclick="openEditFromPost()">수정</button>
+      <button class="btn-del-post" onclick="openDelFromPost()">삭제</button>
+    </div>
   </div>
   <div class="post-wrap">
     <div class="post-meta">
@@ -182,8 +290,61 @@ footer b{color:rgba(255,255,255,.8)}
   </div>
 </div>
 
+<!-- 수정 모달 -->
+<div class="edit-overlay" id="edit-overlay" onclick="overlayEditClick(event)">
+  <div class="edit-modal">
+    <div class="edit-modal-hdr">
+      <h3>글 수정</h3>
+      <button class="edit-close" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="edit-body">
+      <div class="edit-field">
+        <label>제목</label>
+        <input type="text" id="edit-title" placeholder="제목을 입력하세요"/>
+      </div>
+      <div class="edit-field">
+        <label>카테고리</label>
+        <input type="text" id="edit-category" placeholder="예: 정보, 청년, 복지"/>
+      </div>
+      <div class="edit-field">
+        <label>태그 (쉼표로 구분)</label>
+        <input type="text" id="edit-tags" placeholder="예: 정보, 청년, 월세"/>
+      </div>
+      <div class="edit-field">
+        <label>요약</label>
+        <input type="text" id="edit-excerpt" placeholder="글 요약을 입력하세요"/>
+      </div>
+      <div class="edit-field">
+        <label>본문 (HTML)</label>
+        <textarea id="edit-content" placeholder="본문 내용 (HTML 가능)"></textarea>
+      </div>
+    </div>
+    <div class="edit-foot">
+      <button class="btn-cancel" onclick="closeEdit()">취소</button>
+      <button class="btn-save" onclick="saveEdit()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 삭제 확인 모달 -->
+<div class="del-overlay" id="del-overlay" onclick="overlayDelClick(event)">
+  <div class="del-modal">
+    <div class="del-icon">🗑️</div>
+    <h3>글을 삭제할까요?</h3>
+    <p>삭제된 글은 복구할 수 없습니다.<br>정말 삭제하시겠습니까?</p>
+    <div class="del-btns">
+      <button class="btn-del-cancel" onclick="closeDel()">취소</button>
+      <button class="btn-del-confirm" onclick="confirmDelete()">삭제</button>
+    </div>
+  </div>
+</div>
+
+<!-- 토스트 -->
+<div class="toast" id="toast"></div>
+
 <script>
-var posts=[];
+var posts = [];
+var currentPostId = null;
 
 function loadPosts(){
   fetch('posts.json?v='+Date.now())
@@ -204,6 +365,8 @@ function init(){
 
 function buildFilters(){
   var cats=[],bar=document.getElementById('filter-bar');
+  // 기존 버튼 중 '전체' 빼고 제거
+  while(bar.children.length>1) bar.removeChild(bar.lastChild);
   posts.forEach(function(p){if(p.category&&cats.indexOf(p.category)<0)cats.push(p.category)});
   cats.forEach(function(c){
     var b=document.createElement('button');
@@ -229,14 +392,23 @@ function render(list){
     d.style.animationDelay=(0.05+i*0.06)+'s';
     var tags=(p.tags||[]).map(function(t){return'<span class="ptag">#'+t+'</span>'}).join('');
     d.innerHTML='<div class="pc-top"><span class="pc-cat">'+(p.category||'기타')+'</span><span class="pc-date">'+fmtDate(p.date)+'</span></div>'
-      +'<div class="pc-title">'+p.title+'</div>'
+      +'<div class="pc-title">'+esc(p.title)+'</div>'
       +'<div class="pc-excerpt">'+(p.excerpt||'')+'</div>'
       +'<div class="pc-tags">'+tags+'</div>'
-      +'<div class="pc-read">읽기 →</div>';
-    d.onclick=function(){openPost(p)};
+      +'<div class="pc-bottom">'
+      +'<div class="pc-read">읽기 →</div>'
+      +'<div class="pc-actions">'
+      +'<button class="pc-edit" onclick="openEdit(event,\''+p.id+'\')">수정</button>'
+      +'<button class="pc-del" onclick="openDel(event,\''+p.id+'\')">삭제</button>'
+      +'</div></div>';
+    d.querySelector('.pc-read').onclick=function(e){e.stopPropagation();openPost(p)};
+    d.querySelector('.pc-title').onclick=function(){openPost(p)};
+    d.querySelector('.pc-excerpt').onclick=function(){openPost(p)};
     g.appendChild(d);
   });
 }
+
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
 function fmtDate(d){
   if(!d)return'';
@@ -245,6 +417,7 @@ function fmtDate(d){
 }
 
 function openPost(p){
+  currentPostId=p.id;
   document.getElementById('p-cat').textContent=p.category||'';
   document.getElementById('p-date').textContent=fmtDate(p.date);
   document.getElementById('p-title').textContent=p.title;
@@ -259,7 +432,89 @@ function openPost(p){
 function showList(){
   document.getElementById('post-page').className='post-page';
   document.getElementById('list-view').style.display='';
+  currentPostId=null;
   window.scrollTo(0,0);
+}
+
+/* ── 수정 ── */
+function openEdit(e,id){
+  e && e.stopPropagation();
+  var p=posts.find(function(x){return x.id===id});
+  if(!p)return;
+  currentPostId=id;
+  document.getElementById('edit-title').value=p.title||'';
+  document.getElementById('edit-category').value=p.category||'';
+  document.getElementById('edit-tags').value=(p.tags||[]).join(', ');
+  document.getElementById('edit-excerpt').value=p.excerpt||'';
+  document.getElementById('edit-content').value=p.content||'';
+  document.getElementById('edit-overlay').className='edit-overlay on';
+}
+
+function openEditFromPost(){
+  openEdit(null, currentPostId);
+}
+
+function closeEdit(){
+  document.getElementById('edit-overlay').className='edit-overlay';
+}
+
+function overlayEditClick(e){if(e.target===e.currentTarget)closeEdit();}
+
+function saveEdit(){
+  var p=posts.find(function(x){return x.id===currentPostId});
+  if(!p)return;
+  p.title=document.getElementById('edit-title').value;
+  p.category=document.getElementById('edit-category').value;
+  p.tags=document.getElementById('edit-tags').value.split(',').map(function(t){return t.trim()}).filter(Boolean);
+  p.excerpt=document.getElementById('edit-excerpt').value;
+  p.content=document.getElementById('edit-content').value;
+  closeEdit();
+  // 포스트 페이지에서 수정한 경우 화면 갱신
+  if(document.getElementById('post-page').className.indexOf('on')>=0){
+    openPost(p);
+  } else {
+    render(posts);
+    buildFilters();
+  }
+  showToast('✅ 수정되었습니다 (로컬)');
+}
+
+/* ── 삭제 ── */
+function openDel(e,id){
+  e && e.stopPropagation();
+  currentPostId=id;
+  document.getElementById('del-overlay').className='del-overlay on';
+}
+
+function openDelFromPost(){
+  document.getElementById('del-overlay').className='del-overlay on';
+}
+
+function closeDel(){
+  document.getElementById('del-overlay').className='del-overlay';
+}
+
+function overlayDelClick(e){if(e.target===e.currentTarget)closeDel();}
+
+function confirmDelete(){
+  posts=posts.filter(function(p){return p.id!==currentPostId});
+  closeDel();
+  if(document.getElementById('post-page').className.indexOf('on')>=0){
+    showList();
+  }
+  render(posts);
+  buildFilters();
+  document.getElementById('post-count').textContent=posts.length+'개의 글';
+  currentPostId=null;
+  showToast('🗑️ 삭제되었습니다 (로컬)');
+}
+
+/* ── 토스트 ── */
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show';
+  setTimeout(function(){t.className='toast'},2500);
 }
 
 loadPosts();
