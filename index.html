@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Korean Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --border: #242424;
+      --text: #e8e2d9;
+      --muted: #6b6560;
+      --accent: #d4a843;
+      --accent2: #c4522a;
+      --card: #181818;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    }
+    .cursor-ring {
+      width: 28px; height: 28px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, width 0.2s, height 0.2s, opacity 0.2s;
+      opacity: 0.5;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.4;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 56px;
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--muted); }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+
+    .post-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      background: rgba(212,168,67,0.1);
+      border: 1px solid rgba(212,168,67,0.2);
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 7rem 2.5rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: -1rem;
+      transform: translateY(-50%);
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(6rem, 18vw, 16rem);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.03);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) forwards 0.1s;
+    }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: lineIn 0.6s ease forwards 0.9s;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.8;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem 2rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      cursor: none;
+      transition: all 0.2s;
+      text-transform: uppercase;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(212,168,67,0.06);
+    }
+
+    /* ── GRID ── */
+    .grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .post-card {
+      background: var(--card);
+      padding: 2rem;
+      cursor: none;
+      transition: background 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px;
+      height: 0;
+      background: var(--accent);
+      transition: height 0.3s ease;
+    }
+
+    .post-card:hover { background: #1c1c1c; }
+    .post-card:hover::before { height: 100%; }
+
+    /* Featured (첫번째 카드) */
+    .post-card.featured {
+      grid-column: span 7;
+      padding: 3rem;
+    }
+
+    .post-card.regular {
+      grid-column: span 5;
+    }
+
+    .post-card.small {
+      grid-column: span 4;
+    }
+
+    /* 카드 내용 */
+    .card-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin-bottom: 1.2rem;
+      filter: grayscale(20%);
+      display: block;
+    }
+
+    .card-image.hidden { display: none; }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(212,168,67,0.1);
+      border: 1px solid rgba(212,168,67,0.2);
+      padding: 0.15rem 0.5rem;
+    }
+
+    .card-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .card-title {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.01em;
+    }
+
+    .featured .card-title {
+      font-size: 1.5rem;
+    }
+
+    .regular .card-title, .small .card-title {
+      font-size: 1rem;
+    }
+
+    .card-excerpt {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding: 0.1rem 0.4rem;
+      border: 1px solid var(--border);
+    }
+
+    .card-read {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s, gap 0.2s;
+    }
+
+    .post-card:hover .card-read {
+      color: var(--accent);
+      gap: 0.8rem;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 500;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-y: auto;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      max-width: 720px;
+      width: 100%;
+      margin: auto;
+      border-top: 2px solid var(--accent);
+      position: relative;
+      animation: fadeUp 0.3s ease;
+    }
+
+    .modal-header {
+      padding: 2.5rem 2.5rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-body-content {
+      padding: 2rem 2.5rem 3rem;
+      font-size: 0.95rem;
+      line-height: 1.95;
+      color: #c8c0b4;
+      white-space: pre-wrap;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 32px; height: 32px;
+      font-size: 0.85rem;
+      cursor: none;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      grid-column: span 12;
+      padding: 5rem 2rem;
+      text-align: center;
+      display: none;
+    }
+
+    .empty.show { display: block; }
+
+    .empty-icon {
+      font-family: 'DM Mono', monospace;
+      font-size: 2rem;
+      color: var(--border);
+      margin-bottom: 1rem;
+    }
+
+    .empty p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--border);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── LOADING ── */
+    .loading {
+      grid-column: span 12;
+      padding: 4rem;
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes lineIn {
+      to { transform: scaleX(1); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .post-card.featured,
+      .post-card.regular,
+      .post-card.small {
+        grid-column: span 12;
+      }
+      .hero { padding: 4rem 1.5rem 3rem; }
+      header { padding: 0 1.5rem; }
+      nav { display: none; }
+      .filter-bar, .grid { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">BLOG<span>.io</span></a>
+  <nav>
+    <a href="#">홈</a>
+    <a href="#posts">포스트</a>
+    <span class="post-count" id="post-count">— 개의 글</span>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">BLOG</div>
+  <div class="hero-content">
+    <p class="hero-label">AI 자동 발행 블로그</p>
+    <h1>생각을 기록하고<br><em>세상과 나눕니다</em></h1>
+    <p class="hero-desc">Gemini가 작성하고 Make가 자동 발행하는 블로그입니다.<br>매일 새로운 글이 올라옵니다.</p>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-btn active" data-filter="all" onclick="filterPosts('all', this)">전체</button>
+</div>
+
+<!-- GRID -->
+<div class="grid" id="posts-grid">
+  <div class="loading">posts.json 로딩 중...</div>
+</div>
+
+<!-- READ MODAL -->
+<div class="modal-overlay" id="read-modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="card-meta" style="margin-bottom:1rem;">
+        <span class="card-category" id="m-category"></span>
+        <span class="card-date" id="m-date"></span>
+      </div>
+      <div class="card-title featured" id="m-title" style="font-family:'Noto Serif KR',serif;font-size:1.6rem;font-weight:700;letter-spacing:-0.02em;line-height:1.3;"></div>
+      <div class="card-tags" id="m-tags" style="margin-top:0.8rem;"></div>
+    </div>
+    <div class="modal-body-content" id="m-body"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">Korean Blog &mdash; Powered by Make &times; GitHub Pages</div>
+  <div class="footer-right" id="footer-updated"></div>
+</footer>
+
+<script>
+  /* ── CURSOR ── */
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 60);
+  });
+
+  /* ── DATA ── */
+  let allPosts = [];
+  let currentFilter = 'all';
+
+  async function loadPosts() {
+    try {
+      const res = await fetch('posts.json?t=' + Date.now());
+      if (!res.ok) throw new Error('fetch fail');
+      allPosts = await res.json();
+      init();
+    } catch(e) {
+      document.getElementById('posts-grid').innerHTML =
+        '<div class="loading" style="color:#c4522a;">posts.json을 불러올 수 없습니다.<br>파일이 같은 폴더에 있는지 확인하세요.</div>';
+    }
+  }
+
+  function init() {
+    buildFilters();
+    renderPosts(allPosts);
+    document.getElementById('post-count').textContent = allPosts.length + '개의 글';
+    const latest = allPosts[allPosts.length - 1];
+    if (latest) document.getElementById('footer-updated').textContent = 'Last updated: ' + latest.date;
+  }
+
+  /* ── FILTERS ── */
+  function buildFilters() {
+    const cats = [...new Set(allPosts.map(p => p.category).filter(Boolean))];
+    const bar = document.getElementById('filter-bar');
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.dataset.filter = cat;
+      btn.textContent = cat;
+      btn.onclick = () => filterPosts(cat, btn);
+      bar.appendChild(btn);
+    });
+  }
+
+  function filterPosts(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = filter === 'all' ? allPosts : allPosts.filter(p => p.category === filter);
+    renderPosts(filtered);
+  }
+
+  /* ── RENDER ── */
+  function renderPosts(posts) {
+    const grid = document.getElementById('posts-grid');
+    grid.innerHTML = '';
+
+    if (!posts.length) {
+      grid.innerHTML = '<div class="empty show"><div class="empty-icon">[ ]</div><p>해당 카테고리의 글이 없습니다</p></div>';
+      return;
+    }
+
+    // Reverse so newest first
+    const reversed = [...posts].reverse();
+
+    reversed.forEach((post, i) => {
+      const card = document.createElement('div');
+      const cls = i === 0 ? 'featured' : (i % 5 < 2 ? 'regular' : 'small');
+      card.className = 'post-card ' + cls;
+      card.style.animationDelay = (0.1 + i * 0.08) + 's';
+
+      const tagsHTML = (post.tags || []).map(t => `<span class="tag">#${t}</span>`).join('');
+      const imgHTML = post.image
+        ? `<img class="card-image" src="${post.image}" alt="${post.title}" loading="lazy" />`
+        : '';
+
+      card.innerHTML = `
+        ${imgHTML}
+        <div class="card-meta">
+          <span class="card-category">${post.category || '기타'}</span>
+          <span class="card-date">${formatDate(post.date)}</span>
+        </div>
+        <div class="card-title">${post.title}</div>
+        <div class="card-excerpt">${post.excerpt || ''}</div>
+        <div class="card-tags">${tagsHTML}</div>
+        <div class="card-read">읽기 &rarr;</div>
+      `;
+
+      card.onclick = () => openModal(post);
+      grid.appendChild(card);
+    });
+  }
+
+  function formatDate(d) {
+    if (!d) return '';
+    const dt = new Date(d);
+    return dt.getFullYear() + '.' + String(dt.getMonth()+1).padStart(2,'0') + '.' + String(dt.getDate()).padStart(2,'0');
+  }
+
+  /* ── MODAL ── */
+  function openModal(post) {
+    document.getElementById('m-category').textContent = post.category || '';
+    document.getElementById('m-date').textContent = formatDate(post.date);
+    document.getElementById('m-title').textContent = post.title;
+    document.getElementById('m-body').textContent = post.content || '';
+    document.getElementById('m-tags').innerHTML = (post.tags||[]).map(t=>`<span class="tag">#${t}</span>`).join('');
+    document.getElementById('read-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('read-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === e.currentTarget) closeModal();
+  }
+
+  loadPosts();
+</script>
+</body>
+</html>
