@@ -7,10 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
 <script src="https://ads-partners.coupang.com/g.js"></script>
 <style>
-/* 디자인 보존을 위해 기존 스타일 전부 포함 */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
 body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.7;min-height:100vh}
+
+/* HEADER */
 .hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px}
 .hdr-logo{font-family:'Nanum Gothic',sans-serif;font-weight:800;font-size:15px;color:#111;text-decoration:none;letter-spacing:3px;cursor:pointer}
 .hdr-logo b{color:#0066ff}
@@ -18,37 +19,51 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .hdr-nav a{font-size:13px;color:#888;text-decoration:none;font-weight:700;letter-spacing:1px;transition:color .2s;cursor:pointer}
 .hdr-nav a:hover{color:#111}
 .hdr-cnt{font-size:12px;color:#0066ff;border:1px solid #0066ff;padding:3px 12px;font-weight:800;letter-spacing:1px;border-radius:20px}
+
+/* HERO */
 .hero{background:linear-gradient(135deg,#f0f5ff 0%,#e8f4ff 100%);padding:80px 40px;overflow:hidden;position:relative}
 .hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:2px;color:#0066ff;text-transform:uppercase;margin-bottom:20px;background:#fff;padding:5px 14px;border-radius:20px;box-shadow:0 2px 12px rgba(0,102,255,0.12)}
 .hero-h1{font-family:'Nanum Myeongjo',serif;font-size:clamp(22px,2.6vw,36px);font-weight:800;line-height:1.3;letter-spacing:-1px;margin-bottom:16px;color:#111}
 .hero-h1 em{font-style:normal;background:linear-gradient(135deg,#0066ff,#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-desc{font-size:13px;color:#555;line-height:1.9;max-width:420px}
+
+/* GRID & CARDS */
 .filter-wrap{max-width:1200px;margin:0 auto;padding:40px 40px 24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .filter-left{display:flex;gap:8px;flex-wrap:wrap}
-.fbtn{font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700;padding:8px 20px;border:1.5px solid #e5e5e5;background:#fff;color:#888;cursor:pointer;border-radius:24px;transition:all .2s;letter-spacing:.5px}
+.fbtn{font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700;padding:8px 20px;border:1.5px solid #e5e5e5;background:#fff;color:#888;cursor:pointer;border-radius:24px;transition:all .2s}
 .fbtn.on{background:#0066ff;border-color:#0066ff;color:#fff}
 .grid-wrap{max-width:1200px;margin:0 auto;padding:32px 40px 100px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .pcard{background:#fff;border:1.5px solid #f0f0f0;border-radius:16px;padding:28px;cursor:pointer;transition:all .25s;opacity:0;transform:translateY(16px);animation:up .5s ease forwards;position:relative}
 .pcard.big{grid-column:span 2}
 @keyframes up{to{opacity:1;transform:translateY(0)}}
 .pc-thumb{width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:16px;display:block}
-.pc-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.pc-cat{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0066ff;background:#f0f5ff;padding:4px 12px;border-radius:12px}
-.pc-date{font-size:12px;color:#bbb}
-.pc-title{font-family:'Nanum Myeongjo',serif;font-weight:700;font-size:18px;line-height:1.4;margin-bottom:12px;color:#111}
-.pc-excerpt{font-size:14px;color:#888;line-height:1.8;margin-bottom:16px}
+.pc-cat{font-size:11px;font-weight:800;color:#0066ff;background:#f0f5ff;padding:4px 12px;border-radius:12px}
+.pc-title{font-family:'Nanum Myeongjo',serif;font-weight:700;font-size:18px;margin-bottom:12px;color:#111}
+.pc-excerpt{font-size:14px;color:#888;line-height:1.8}
+
+/* POST PAGE */
 .post-page{display:none;min-height:100vh;background:#fff;animation:fadeIn .3s ease}
 .post-page.on{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .post-hdr{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;z-index:10}
+.post-back{border:none;background:none;font-weight:800;color:#888;cursor:pointer;font-family:inherit}
 .post-wrap{max-width:760px;margin:0 auto;padding:64px 40px 120px}
+.post-title{font-family:'Nanum Myeongjo',serif;font-size:clamp(26px,4vw,42px);font-weight:800;margin-bottom:20px}
 .post-body{font-size:17px;line-height:2;color:#333}
-.edit-overlay, .del-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:4000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px)}
+.post-body img{max-width:100%;border-radius:12px}
+.ptag{font-size:11px;color:#aaa;border:1px solid #eee;padding:2px 10px;border-radius:10px;margin-right:5px}
+
+/* MODALS & TOAST */
+.edit-overlay, .del-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:4000;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .edit-overlay.on, .del-overlay.on{display:flex}
-.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:14px 28px;border-radius:32px;font-size:14px;font-weight:800;opacity:0;transition:all .3s;z-index:9999}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:space-between;align-items:center;padding:28px 40px;font-size:13px}
-@media(max-width:768px){ .hero-inner{grid-template-columns:1fr} .grid-wrap{grid-template-columns:1fr} }
+.edit-modal{background:#fff;max-width:680px;width:90%;border-radius:24px;padding:32px;max-height:90vh;overflow-y:auto}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 24px;border-radius:32px;font-size:14px;opacity:0;transition:0.3s}
+.toast.show{opacity:1}
+
+footer{background:#111;color:rgba(255,255,255,.4);padding:28px 40px;text-align:center;font-size:13px}
+
+@media(max-width:768px){ .hero-inner{grid-template-columns:1fr} .grid-wrap{grid-template-columns:1fr} .pcard.big{grid-column:span 1} }
 </style>
 </head>
 <body>
@@ -57,7 +72,6 @@ footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:s
   <span class="hdr-logo" onclick="showList()">KOREAN<b>BLOG</b></span>
   <nav class="hdr-nav">
     <a onclick="showList()">홈</a>
-    <a href="#posts">포스트</a>
     <span class="hdr-cnt" id="post-count">0개의 글</span>
   </nav>
 </header>
@@ -68,50 +82,70 @@ footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:s
       <div class="hero-left">
         <div class="hero-tag">대한민국 지원 정책 소개 블로그</div>
         <h1 class="hero-h1">정책을 알면<br><em>혜택이 보입니다</em></h1>
-        <p class="hero-desc">지원되는 정책과 소개하는 정보 블로그입니다.<br>청년, 복지, 생활 정책을 쉽고 빠르게 확인하세요.</p>
+        <p class="hero-desc">청년, 복지, 생활 정책을 쉽고 빠르게 확인하세요.</p>
       </div>
     </div>
   </section>
 
-  <div class="filter-wrap" id="filter-bar-wrap">
+  <div class="filter-wrap">
     <div class="filter-left" id="filter-bar">
       <button class="fbtn on" onclick="filterPosts('all',this)">전체</button>
     </div>
   </div>
   <div class="grid-wrap" id="posts-grid"></div>
-  <footer><b>Korean Blog</b> — Powered by n8n × GitHub Pages</footer>
+  <footer><b>Korean Blog</b> — 2026</footer>
 </div>
 
 <div class="post-page" id="post-page">
   <div class="post-hdr">
     <button class="post-back" onclick="showList()">← 목록으로</button>
+    <div class="post-hdr-actions">
+      <button onclick="openEditFromPost()">수정</button>
+      <button onclick="openDelFromPost()">삭제</button>
+    </div>
   </div>
   <div class="post-wrap">
-    <div class="post-meta"><span class="post-cat" id="p-cat"></span><span id="p-date"></span></div>
+    <div class="post-meta"><span class="post-cat" id="p-cat"></span> <span id="p-date" style="color:#bbb; font-size:13px"></span></div>
     <h1 class="post-title" id="p-title"></h1>
-    <img id="p-thumb" style="width:100%; border-radius:16px; margin:20px 0; display:none"/>
+    <div id="p-tags" style="margin-bottom:30px"></div>
+    <img id="p-thumb" style="width:100%; border-radius:16px; margin-bottom:40px; display:none"/>
     <div class="post-body" id="p-body"></div>
     
-    <div id="ad-area" style="margin-top:50px; text-align:center;"></div>
+    <div id="coupang-ad-box" style="margin-top:50px; text-align:center; min-height:140px; border-top:1px solid #eee; padding-top:30px;"></div>
     
-    <div class="post-footer">
-      <button class="back-btn" onclick="showList()">← 목록으로 돌아가기</button>
+    <div class="post-footer" style="margin-top:50px; text-align:center">
+      <button onclick="showList()" style="padding:12px 30px; border-radius:30px; border:none; background:#f0f5ff; color:#0066ff; font-weight:800; cursor:pointer">목록으로 돌아가기</button>
     </div>
   </div>
 </div>
 
+<div class="edit-overlay" id="edit-overlay">
+  <div class="edit-modal">
+    <h3>글 수정</h3>
+    <input type="text" id="edit-title" style="width:100%; margin:10px 0; padding:10px"/>
+    <textarea id="edit-content" style="width:100%; height:300px; margin:10px 0; padding:10px"></textarea>
+    <button onclick="saveEdit()" style="background:#0066ff; color:#fff; border:none; padding:10px 20px; cursor:pointer">저장</button>
+    <button onclick="closeEdit()">취소</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
 var posts = [];
+var currentPostId = null;
+
 function loadPosts(){
   fetch('posts.json?v='+Date.now())
     .then(r => r.json())
-    .then(data => { posts=data; init(); });
+    .then(data => { posts=data; init(); })
+    .catch(e => console.log("불러오기 실패"));
 }
 
 function init(){
   buildFilters();
   render(posts);
-  document.getElementById('post-count').textContent=posts.length+'개의 글';
+  document.getElementById('post-count').textContent = posts.length + '개의 글';
 }
 
 function buildFilters(){
@@ -138,22 +172,28 @@ function render(list){
   [].concat(list).reverse().forEach((p,i) => {
     var d=document.createElement('div');
     d.className='pcard'+(i===0?' big':'');
-    d.innerHTML=`<div class="pc-title">${p.title}</div><div class="pc-excerpt">${p.excerpt||''}</div>`;
+    d.innerHTML=`<div class="pc-cat">${p.category||'기타'}</div><div class="pc-title">${p.title}</div><div class="pc-excerpt">${p.excerpt||''}</div>`;
     d.onclick=() => openPost(p);
     g.appendChild(d);
   });
 }
 
 function openPost(p){
-  document.getElementById('p-cat').textContent=p.category||'';
-  document.getElementById('p-title').textContent=p.title;
-  document.getElementById('p-body').innerHTML=p.content||'';
+  currentPostId = p.id;
+  document.getElementById('p-cat').textContent = p.category||'';
+  document.getElementById('p-title').textContent = p.title;
+  document.getElementById('p-body').innerHTML = p.content||'';
   
-  // 배너 초기화 및 재생성
-  const adArea = document.getElementById('ad-area');
-  adArea.innerHTML = ''; 
+  // 이미지 처리
+  var thumb = document.getElementById('p-thumb');
+  if(p.image){
+    thumb.src = p.image.replace('&export=download','');
+    thumb.style.display = 'block';
+  } else { thumb.style.display = 'none'; }
 
-  // 배너 라이브러리가 로드되었는지 확인 후 실행
+  // --- 쿠팡 배너 실행 로직 ---
+  const adBox = document.getElementById('coupang-ad-box');
+  adBox.innerHTML = ''; // 초기화
   if (window.PartnersCoupang) {
     new PartnersCoupang.G({
       "id": 983762,
@@ -161,7 +201,7 @@ function openPost(p){
       "template": "carousel",
       "width": "680",
       "height": "140",
-      "container": "ad-area" 
+      "container": "coupang-ad-box"
     });
   }
 
@@ -173,6 +213,30 @@ function openPost(p){
 function showList(){
   document.getElementById('post-page').className='post-page';
   document.getElementById('list-view').style.display='';
+}
+
+function openEditFromPost(){
+  var p = posts.find(x => x.id === currentPostId);
+  document.getElementById('edit-title').value = p.title;
+  document.getElementById('edit-content').value = p.content;
+  document.getElementById('edit-overlay').className='edit-overlay on';
+}
+
+function closeEdit(){ document.getElementById('edit-overlay').className='edit-overlay'; }
+
+function saveEdit(){
+  var p = posts.find(x => x.id === currentPostId);
+  p.title = document.getElementById('edit-title').value;
+  p.content = document.getElementById('edit-content').value;
+  closeEdit();
+  openPost(p);
+  showToast("수정되었습니다 (로컬)");
+}
+
+function showToast(m){
+  var t=document.getElementById('toast');
+  t.textContent=m; t.className='toast show';
+  setTimeout(()=>t.className='toast',2000);
 }
 
 loadPosts();
