@@ -7,11 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
 <script src="https://ads-partners.coupang.com/g.js"></script>
 <style>
-/* 기존 스타일 그대로 유지 (생략하지 않고 그대로 사용하시면 됩니다) */
+/* 디자인 보존을 위해 기존 스타일 전부 포함 */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
 body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.7;min-height:100vh}
-/* ... (중략: 사용자의 기존 CSS 스타일들) ... */
 .hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid #e5e5e5;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px}
 .hdr-logo{font-family:'Nanum Gothic',sans-serif;font-weight:800;font-size:15px;color:#111;text-decoration:none;letter-spacing:3px;cursor:pointer}
 .hdr-logo b{color:#0066ff}
@@ -33,6 +32,7 @@ body{background:#ffffff;color:#111111;font-family:'Nanum Gothic','Apple SD Gothi
 .pcard{background:#fff;border:1.5px solid #f0f0f0;border-radius:16px;padding:28px;cursor:pointer;transition:all .25s;opacity:0;transform:translateY(16px);animation:up .5s ease forwards;position:relative}
 .pcard.big{grid-column:span 2}
 @keyframes up{to{opacity:1;transform:translateY(0)}}
+.pc-thumb{width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:16px;display:block}
 .pc-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .pc-cat{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#0066ff;background:#f0f5ff;padding:4px 12px;border-radius:12px}
 .pc-date{font-size:12px;color:#bbb}
@@ -68,7 +68,7 @@ footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:s
       <div class="hero-left">
         <div class="hero-tag">대한민국 지원 정책 소개 블로그</div>
         <h1 class="hero-h1">정책을 알면<br><em>혜택이 보입니다</em></h1>
-        <p class="hero-desc">2026년 최신 정책 정보를 빠르게 전달합니다.</p>
+        <p class="hero-desc">지원되는 정책과 소개하는 정보 블로그입니다.<br>청년, 복지, 생활 정책을 쉽고 빠르게 확인하세요.</p>
       </div>
     </div>
   </section>
@@ -85,19 +85,14 @@ footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:s
 <div class="post-page" id="post-page">
   <div class="post-hdr">
     <button class="post-back" onclick="showList()">← 목록으로</button>
-    <div class="post-hdr-actions">
-      <button onclick="openEditFromPost()">수정</button>
-      <button onclick="openDelFromPost()">삭제</button>
-    </div>
   </div>
   <div class="post-wrap">
     <div class="post-meta"><span class="post-cat" id="p-cat"></span><span id="p-date"></span></div>
     <h1 class="post-title" id="p-title"></h1>
-    <div id="p-tags"></div>
     <img id="p-thumb" style="width:100%; border-radius:16px; margin:20px 0; display:none"/>
     <div class="post-body" id="p-body"></div>
     
-    <div id="coupang-ad-container" style="margin-top:50px; text-align:center; min-height:140px;"></div>
+    <div id="ad-area" style="margin-top:50px; text-align:center;"></div>
     
     <div class="post-footer">
       <button class="back-btn" onclick="showList()">← 목록으로 돌아가기</button>
@@ -107,8 +102,6 @@ footer{background:#111;color:rgba(255,255,255,.4);display:flex;justify-content:s
 
 <script>
 var posts = [];
-var currentPostId = null;
-
 function loadPosts(){
   fetch('posts.json?v='+Date.now())
     .then(r => r.json())
@@ -152,28 +145,24 @@ function render(list){
 }
 
 function openPost(p){
-  currentPostId=p.id;
   document.getElementById('p-cat').textContent=p.category||'';
   document.getElementById('p-title').textContent=p.title;
   document.getElementById('p-body').innerHTML=p.content||'';
   
-  // --- 쿠팡 광고 강제 삽입 로직 ---
-  const adContainer = document.getElementById('coupang-ad-container');
-  adContainer.innerHTML = ''; // 기존 광고 제거 (초기화)
+  // 배너 초기화 및 재생성
+  const adArea = document.getElementById('ad-area');
+  adArea.innerHTML = ''; 
 
+  // 배너 라이브러리가 로드되었는지 확인 후 실행
   if (window.PartnersCoupang) {
-    // 0.1초 뒤에 광고 렌더링 (DOM 안정화 후)
-    setTimeout(() => {
-      new PartnersCoupang.G({
-        "id": 983762,
-        "trackingCode": "AF4015863",
-        "subId": null,
-        "template": "carousel",
-        "width": "680",
-        "height": "140",
-        "container": "coupang-ad-container" // 이 ID의 div에 광고 삽입
-      });
-    }, 100);
+    new PartnersCoupang.G({
+      "id": 983762,
+      "trackingCode": "AF4015863",
+      "template": "carousel",
+      "width": "680",
+      "height": "140",
+      "container": "ad-area" 
+    });
   }
 
   document.getElementById('list-view').style.display='none';
